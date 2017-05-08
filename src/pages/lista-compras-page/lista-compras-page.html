@@ -1,0 +1,38 @@
+<ion-header>
+  
+  <ion-navbar>
+    <ion-buttons start>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons> 
+    <ion-title>Lista de Compras</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="incluiItem(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Nome</ion-label>
+        <ion-input type="text" name="nomeIngrediente" placeholder="cerveja" ngModel required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Quantidade</ion-label>
+        <ion-input type="number" name="qtdeIngrediente" placeholder="6" ngModel required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button type="submit" block [disabled]="!f.valid">Inclui na lista</button> 
+  </form>
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item *ngFor="let item of listaItens; let i=index">
+        <h3>{{ item.nome }} : {{item.quantidade}}</h3>
+      </ion-item>
+      <ion-item-options side="left" (ionSwipe)="verificaItem(i)">
+      </ion-item-options>  
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

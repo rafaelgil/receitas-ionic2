@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ mode }} Receita</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formReceita" (ngSubmit)="envia()">
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Nome</ion-label>
+            <ion-input type="text" formControlName='nome'></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Descrição</ion-label>
+            <ion-textarea formControlName='descricao'></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Dificuldade</ion-label>
+            <ion-select formControlName='dificuldade'>
+              <ion-option *ngFor="let option of niveisDificuldade"
+              [value]="option">{{option}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <button type="button" clear ion-button block (click)="editaIngredientes()">Ingredientes</button>
+    <ion-list formArrayName="ingredientes">
+      <ion-item-sliding>
+        <ion-item *ngFor="let igControl of formReceita.get('ingredientes').controls; let i = index">
+          <ion-label>Nome</ion-label>
+          <ion-input type="text" [formControlName]="i"></ion-input>
+        </ion-item>
+        <ion-item-options side="left" (ionSwipe)="removeReceita(i)">
+        </ion-item-options>  
+      </ion-item-sliding>
+    </ion-list>
+    <button type="submit" ion-button block [disabled]="!formReceita.valid">{{ mode }} Receita</button>
+  </form>
+</ion-content>

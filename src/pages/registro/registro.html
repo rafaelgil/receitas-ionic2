@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="registra(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="email" ngModel name="email" required email></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Senha</ion-label>
+        <ion-input type="password" ngModel name="senha" 
+        required [minlength]="6"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button block type="submit" [disabled]="!f.valid">Enviar</button>
+  </form>
+</ion-content>
+
