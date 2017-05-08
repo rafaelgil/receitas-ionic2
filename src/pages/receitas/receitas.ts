@@ -1,13 +1,13 @@
+import { ReceitaPage } from './../receita/receita';
+import { EditaReceitaPage } from './../edita-receita/edita-receita';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Receita } from "../../models/receita";
 import { ReceitasService } from "../../services/receitas";
-import { EditaReceitaPage } from "../edita-receita-page/edita-receita-page";
-import { ReceitaPage } from "../receita-page/receita-page";
 
 @Component({
   selector: 'page-receitas',
-  templateUrl: 'receitas-page.html'
+  templateUrl: 'receitas.html'
 })
 export class ReceitasPage {
 

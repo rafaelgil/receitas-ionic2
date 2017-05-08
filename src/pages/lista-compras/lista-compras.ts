@@ -5,7 +5,7 @@ import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'page-lista-compras',
-  templateUrl: 'lista-compras-page.html'
+  templateUrl: 'lista-compras.html'
 })
 export class ListaComprasPage {
 
@@ -28,7 +28,7 @@ export class ListaComprasPage {
     this.listaItens = this.listaComprasService.getItens();
   }
 
-  verificaItem(index: number) {
+  removerItem(index: number) {
     this.listaComprasService.removeItem(index);
     this.carregaItens();
   }

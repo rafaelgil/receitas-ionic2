@@ -1,7 +1,7 @@
 import { AutenticacaoService } from './../../services/autenticacao';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the Signin page.

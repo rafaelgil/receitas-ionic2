@@ -1,14 +1,14 @@
+import { EditaReceitaPage } from './../edita-receita/edita-receita';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Receita } from "../../models/receita";
 import { ListaComprasService } from "../../services/lista-components";
 import { ReceitasService } from "../../services/receitas";
-import { EditaReceitaPage } from "../edita-receita-page/edita-receita-page";
 import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-receita',
-  templateUrl: 'receita-page.html'
+  templateUrl: 'receita.html'
 })
 export class ReceitaPage implements OnInit {
     

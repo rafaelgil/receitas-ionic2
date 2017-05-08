@@ -6,7 +6,7 @@ import { Receita } from "../../models/receita";
 
 @Component({
   selector: 'page-edita-receita',
-  templateUrl: 'edita-receita-page.html'
+  templateUrl: 'edita-receita.html'
 })
 
 export class EditaReceitaPage {

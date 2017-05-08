@@ -1,5 +1,5 @@
-import { ReceitasPage } from './../receitas-page/receitas-page';
-import { ListaComprasPage } from './../lista-compras-page/lista-compras-page';
+import { ReceitasPage } from './../receitas/receitas';
+import { ListaComprasPage } from './../lista-compras/lista-compras';
 import { Component } from '@angular/core';
 
 @Component({
