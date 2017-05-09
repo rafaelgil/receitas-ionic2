@@ -20,15 +20,21 @@
         <p>{{ receita.descricao }}
       </ion-col>
     </ion-row>
-    <ion-row>
+    
+   <ion-row>
       <ion-col>
         <ion-list>
-          <ion-item *ngFor="let ingrediente of receita.ingredientes">
-            {{ ingrediente.nome }}
+          <ion-list-header>
+            Ingredientes
+          </ion-list-header>
+          <ion-item *ngFor="let ingrediente of receita.ingredientes; let i = index">
+            <ion-input type="text" value="{{ ingrediente.nome }}" readonly></ion-input>
+            <ion-input type="number" value="{{ ingrediente.quantidade }}" readonly></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
+
     <ion-row *ngIf="receita.ingredientes.length > 0">
       <ion-col text-center>
         <button ion-button clear (click)="adicionaIngredientes()">Adiciona ingredientes à lista de compras</button>

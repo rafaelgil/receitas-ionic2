@@ -1,3 +1,4 @@
+import { Ingrediente } from './../../models/ingrediente';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
@@ -43,8 +44,12 @@ export class EditaReceitaPage {
       nome = this.receita.nome;
       descricao = this.receita.descricao;
       dificuldade = this.receita.dificuldade;
+      
       for (let ingrediente of this.receita.ingredientes) {
-        ingredientes.push(new FormControl(ingrediente.nome, Validators.required));
+        ingredientes.push(new FormGroup({
+          'nome' : new FormControl(ingrediente.nome, Validators.required),
+          'quantidade' : new FormControl(ingrediente.quantidade, Validators.required)
+        }));
       }
     }
 
@@ -61,8 +66,8 @@ export class EditaReceitaPage {
     let ingredientes = [];
 
     if (value.ingredientes.length > 0) {
-      ingredientes = value.ingredientes.map(nome => {
-        return {nome: nome, quantidade: 1};
+      ingredientes = value.ingredientes.map(ingrediente => {
+        return {nome: ingrediente.nome, quantidade: ingrediente.quantidade};
       });
     }
 
@@ -116,6 +121,10 @@ export class EditaReceitaPage {
         {
           name: 'nome',
           placeholder: 'Nome'
+        },
+        {
+          name: 'quantidade',
+          placeholder: 'Quantidade'
         }
       ],
       buttons: [
@@ -125,14 +134,10 @@ export class EditaReceitaPage {
         },
         {
           text: 'Adiciona',
-          handler: data => {
-            if (data.nome.trim() == '' || data.nome == null) {
-              this.mensagem('Entre com um valor válido!');
-              return;
-            }
-            (<FormArray>this.formReceita.get('ingredientes'))
-              .push(new FormControl(data.nome, Validators.required));
-            this.mensagem('Ingrediente adicionado');
+          handler: data => {            
+            if(this.validarAdicaoIngrediente(data)){
+              this.adicionarIngrediente(data);
+            }            
           }
         }
       ]
@@ -151,6 +156,49 @@ export class EditaReceitaPage {
   removeReceita(index: number) {
     const fArray: FormArray = <FormArray>this.formReceita.get('ingredientes');
     fArray.removeAt(index);
+  }
+
+  validarAdicaoIngrediente(ingrediente : Ingrediente){
+
+    if (ingrediente.nome.trim() == '' || ingrediente.nome == null) {
+      this.mensagem('Informe o nome!');
+      return false;
+    }
+    if (ingrediente.quantidade == null || ingrediente.quantidade <= 0) {
+      this.mensagem('Informe a quantidade!');
+      return false;
+    }
+
+    return true;
+
+  }
+
+  adicionarIngrediente(ingrediente : Ingrediente){
+
+    const index = this.formReceita.get('ingredientes').value.findIndex(item => item.nome == ingrediente.nome);
+
+    if(index >= 0) {
+      let novaQuantidade:Number = Number(this.formReceita.get('ingredientes').value[index].quantidade) + Number(ingrediente.quantidade);
+      let formIngrediente:FormGroup = new FormGroup({'nome' : new FormControl(ingrediente.nome, Validators.required),
+          'quantidade' : new FormControl(novaQuantidade, Validators.required)});      
+      //(<FormArray>this.formReceita.get('ingredientes')).at(index).patchValue(formIngrediente);
+      (<FormArray>this.formReceita.get('ingredientes')).removeAt(index);
+      (<FormArray>this.formReceita.get('ingredientes')).push(formIngrediente);
+    }else{
+      (<FormArray>this.formReceita.get('ingredientes'))
+        .push(new FormGroup({
+          'nome' : new FormControl(ingrediente.nome, Validators.required),
+          'quantidade' : new FormControl(ingrediente.quantidade, Validators.required)
+        }
+      ));
+    }
+
+    this.mensagem('Ingrediente adicionado');
+  }
+
+  removeIngrediente(index: number) {
+    (<FormArray>this.formReceita.get('ingredientes')).removeAt(index);
+    this.mensagem('Ingrediente removido');
   }
 
 }
