@@ -1,1 +1,1 @@
-Exemplo de aplicativo com IONIC2
+Exemplo de um aplicativo de receitas com IONIC2.
